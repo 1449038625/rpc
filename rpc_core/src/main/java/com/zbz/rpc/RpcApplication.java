@@ -1,7 +1,10 @@
 package com.zbz.rpc;
 
+import com.zbz.rpc.config.RegistryConfig;
 import com.zbz.rpc.config.RpcConfig;
 import com.zbz.rpc.constant.RpcConstant;
+import com.zbz.rpc.registry.Registry;
+import com.zbz.rpc.registry.RegistryFactory;
 import com.zbz.rpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,14 +21,18 @@ import lombok.extern.slf4j.Slf4j;
 public class RpcApplication {
     private static volatile RpcConfig rpcConfig;
     /**
-     * 框架初始化，可以传入自定义配置
+     * 框架初始化，可以传入自定义配置，就跟springboot的配置类类似了
      * @param newRpcConfig
      */
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig=newRpcConfig;
-
         log.info("rpc init,config = {}",newRpcConfig.toString());
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        registry.init(registryConfig);
+        log.info("rpc init,registry = {}",registryConfig);
     }
+
     /**
      * 初始化
      */

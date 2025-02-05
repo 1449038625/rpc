@@ -1,8 +1,10 @@
-package com.zbz.rpc.serializer;
+package com.zbz.rpc.serializer.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
+import com.zbz.rpc.serializer.Serializer;
+
 import java.io.IOException;
 
 /**

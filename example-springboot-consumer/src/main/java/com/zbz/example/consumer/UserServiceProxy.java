@@ -6,8 +6,7 @@ import com.zbz.example.common.model.User;
 import com.zbz.example.common.service.UserService;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
-import com.zbz.rpc.serializer.JdkSerializer;
-import com.zbz.rpc.serializer.Serializer;
+import com.zbz.rpc.serializer.impl.JdkSerializer;
 
 /**
  * Classname: UserServiceProxy

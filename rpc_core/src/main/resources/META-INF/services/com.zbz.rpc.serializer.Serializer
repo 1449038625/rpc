@@ -1,1 +1,1 @@
-com.zbz.rpc.serializer.JdkSerializer
+com.zbz.rpc.serializer.impl.JdkSerializer

@@ -15,5 +15,4 @@ public interface HttpServer {
      * @param port
      */
     void doStart(int port);
-
 }

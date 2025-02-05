@@ -1,6 +1,6 @@
 package com.zbz.rpc.config;
 
-import com.zbz.rpc.serializer.SerializerKeys;
+import com.zbz.rpc.constant.SerializerKeys;
 import lombok.Data;
 
 /**
@@ -38,4 +38,8 @@ public class RpcConfig {
      * 序列化器
      */
     private String serializer = SerializerKeys.JDK;
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig = new RegistryConfig();
 }

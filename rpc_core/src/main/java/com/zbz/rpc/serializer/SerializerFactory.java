@@ -1,10 +1,7 @@
 package com.zbz.rpc.serializer;
 
+import com.zbz.rpc.serializer.impl.JdkSerializer;
 import com.zbz.rpc.spi.SpiLoader;
-
-import javax.print.DocFlavor;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Classname: SerializerFactory
@@ -24,7 +21,11 @@ public class SerializerFactory {
      * 默认序列化器
      */
     private static final Serializer DEFAULT_SERIALIZER = new JdkSerializer();
-
+    /**
+     * 根据key获取序列化器,获取的是一个实例
+     * @param key
+     * @return
+     */
     public static Serializer getInstance(String key){
         return SpiLoader.getInstance(Serializer.class,key);
     }

@@ -6,7 +6,7 @@ import cn.hutool.setting.dialect.Props;
 /**
  * Classname: ConfigUtils
  * Package: com.zbz.rpc.utils
- * Decription:读取配置文件并返回配置对象
+ * Decription:通用的导入配置方法，根据不同的配置前缀导入到配置类里面去
  *
  * @Author: 爱可尼科
  * @Create: 2025/2/4 - 20:00

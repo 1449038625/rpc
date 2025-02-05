@@ -1,6 +1,7 @@
 package com.zbz.rpc.spi;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.zbz.rpc.constant.RpcConstant;
 import com.zbz.rpc.serializer.Serializer;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class SpiLoader {
     /**
-     * 存储所有接口的实现类
+     * 存储所有接口的所有实现类
      */
     private static Map<String, Map<String,Class<?>>> loaderMap=new ConcurrentHashMap<>();
     /**
@@ -29,11 +30,11 @@ public class SpiLoader {
     /**
      * 系统的spi的目录
      */
-    private static final String RPC_SYSTEM_SPI_DIR="META-INF/rpc/system/";
+    private static final String RPC_SYSTEM_SPI_DIR= RpcConstant.RPC_SYSTEM_SPI_DIR;
     /**
      * 用户自定义的spi的目录
      */
-    private static final String RPC_CUSTOM_SPI_DIR="META-INF/rpc/custom/";
+    private static final String RPC_CUSTOM_SPI_DIR=RpcConstant.RPC_CUSTOM_SPI_DIR;
     /**
      * 扫描路径
      */
@@ -41,6 +42,7 @@ public class SpiLoader {
     /**
      * 动态加载类列表
      */
+    // todo 这里写死了，只放了Serializer类，后续可以扩展
     private static final List<Class<?>> LOAD_CLASS_LIST = Arrays.asList(Serializer.class);
     /**
      * 加载所有类型

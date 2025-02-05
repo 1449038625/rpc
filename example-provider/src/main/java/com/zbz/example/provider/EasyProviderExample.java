@@ -1,9 +1,9 @@
 package com.zbz.example.provider;
 
 import com.zbz.example.common.service.UserService;
-import com.zbz.rpc.register.LocalRegistry;
+import com.zbz.rpc.registry.LocalRegistry;
 import com.zbz.rpc.server.HttpServer;
-import com.zbz.rpc.server.VertxHttpServer;
+import com.zbz.rpc.server.vertximpl.VertxHttpServer;
 
 /**
  * Classname: EasyProviderExample

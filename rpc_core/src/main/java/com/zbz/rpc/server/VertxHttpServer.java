@@ -17,7 +17,6 @@ public class VertxHttpServer implements HttpServer{
         Vertx vertx = Vertx.vertx();
         io.vertx.core.http.HttpServer httpServer = vertx.createHttpServer();
         httpServer.requestHandler(new HttpServerHandler());
-
         httpServer.listen(port,result -> {
             if(result.succeeded()){
                 System.out.println("Server started on port "+port);

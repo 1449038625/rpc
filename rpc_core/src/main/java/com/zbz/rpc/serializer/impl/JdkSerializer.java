@@ -1,4 +1,6 @@
-package com.zbz.rpc.serializer;
+package com.zbz.rpc.serializer.impl;
+
+import com.zbz.rpc.serializer.Serializer;
 
 import java.io.*;
 

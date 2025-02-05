@@ -1,4 +1,4 @@
-package com.zbz.rpc.serializer;
+package com.zbz.rpc.constant;
 
 /**
  * Classname: SerializerKeys

@@ -2,7 +2,12 @@ package com.zbz.example.provider;
 
 import com.zbz.example.common.service.UserService;
 import com.zbz.rpc.RpcApplication;
-import com.zbz.rpc.register.LocalRegistry;
+import com.zbz.rpc.config.RegistryConfig;
+import com.zbz.rpc.config.RpcConfig;
+import com.zbz.rpc.model.ServiceMetaInfo;
+import com.zbz.rpc.registry.Registry;
+import com.zbz.rpc.registry.RegistryFactory;
+import com.zbz.rpc.registry.impl.LocalRegistry;
 import com.zbz.rpc.server.HttpServer;
 import com.zbz.rpc.server.VertxHttpServer;
 
@@ -18,11 +23,23 @@ import com.zbz.rpc.server.VertxHttpServer;
 public class ProviderExample {
     public static void main(String[] args) {
         RpcApplication.init();
+        String serviceName = UserService.class.getName();
         //提供服务
-        // todo 注册服务可以采用注解方式实现
-        LocalRegistry.register(UserService.class.getName(), UserServiceImpl.class);
+        LocalRegistry.register(serviceName, UserServiceImpl.class);
+        RpcConfig rpcConfig = RpcApplication.getRpcConfig();
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
+        serviceMetaInfo.setServiceName(serviceName);
+        serviceMetaInfo.setServiceHost(rpcConfig.getServerHost());
+        serviceMetaInfo.setServicePort(rpcConfig.getServerPort());
+        try {
+            registry.register(serviceMetaInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         // 启动 web 服务
         HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        httpServer.doStart(rpcConfig.getServerPort());
     }
 }
