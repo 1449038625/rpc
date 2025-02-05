@@ -2,10 +2,11 @@ package com.zbz.rpc.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
-import com.zbz.rpc.serializer.JdkSerializer;
-
+import com.zbz.rpc.serializer.Serializer;
+import com.zbz.rpc.serializer.SerializerFactory;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -21,7 +22,7 @@ import java.lang.reflect.Method;
 public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        JdkSerializer serializer = new JdkSerializer();
+        Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
         RpcRequest rpcRequest = RpcRequest.builder()
                 .serviceName(method.getDeclaringClass().getName())
                 .methodName(method.getName())

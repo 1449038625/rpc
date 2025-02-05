@@ -2,10 +2,7 @@ package com.zbz.example.consumer;
 
 import com.zbz.example.common.model.User;
 import com.zbz.example.common.service.UserService;
-import com.zbz.rpc.RpcApplication;
-import com.zbz.rpc.config.RpcConfig;
 import com.zbz.rpc.proxy.ServiceProxyFactory;
-import com.zbz.rpc.utils.ConfigUtils;
 
 /**
  * Classname: EasyConsumerExample

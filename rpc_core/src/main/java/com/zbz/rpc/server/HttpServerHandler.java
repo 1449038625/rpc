@@ -1,10 +1,12 @@
 package com.zbz.rpc.server;
 
+import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
 import com.zbz.rpc.register.LocalRegistry;
 import com.zbz.rpc.serializer.JdkSerializer;
 import com.zbz.rpc.serializer.Serializer;
+import com.zbz.rpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -25,7 +27,7 @@ import java.lang.reflect.Method;
 public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest httpServerRequest) {
-        final JdkSerializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
         System.out.println("Received request: " + httpServerRequest.method()+" "+httpServerRequest.uri());
         httpServerRequest.bodyHandler(body -> {
             byte[] bytes = body.getBytes();

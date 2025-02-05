@@ -1,5 +1,6 @@
 package com.zbz.rpc.config;
 
+import com.zbz.rpc.serializer.SerializerKeys;
 import lombok.Data;
 
 /**
@@ -29,4 +30,12 @@ public class RpcConfig {
      * 服务端端口
      */
     private Integer serverPort=8080;
+    /**
+     * 是否开启mock
+     */
+    private boolean mock=false;
+    /**
+     * 序列化器
+     */
+    private String serializer = SerializerKeys.JDK;
 }
