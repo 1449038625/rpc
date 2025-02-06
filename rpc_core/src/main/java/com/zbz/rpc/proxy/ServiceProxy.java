@@ -1,20 +1,38 @@
 package com.zbz.rpc.proxy;
 
+import ch.qos.logback.classic.spi.LoggerContextAware;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.config.RpcConfig;
+import com.zbz.rpc.constant.ProtocolConstant;
 import com.zbz.rpc.constant.RpcConstant;
+import com.zbz.rpc.enums.ProtocolMessageSerializerEnum;
+import com.zbz.rpc.enums.ProtocolMessageTypeEnum;
+import com.zbz.rpc.loadbalancer.LoadBalancer;
+import com.zbz.rpc.loadbalancer.LoadBalancerFactory;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
 import com.zbz.rpc.model.ServiceMetaInfo;
+import com.zbz.rpc.protocol.ProtocolMessage;
+import com.zbz.rpc.protocol.ProtocolMessageDecoder;
+import com.zbz.rpc.protocol.ProtocolMessageEncoder;
 import com.zbz.rpc.registry.Registry;
 import com.zbz.rpc.registry.RegistryFactory;
 import com.zbz.rpc.serializer.Serializer;
 import com.zbz.rpc.serializer.SerializerFactory;
+import com.zbz.rpc.server.tcp.VertxTcpClient;
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.net.NetClient;
+import io.vertx.core.net.NetSocket;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Classname: ServiceProxy
@@ -38,7 +56,6 @@ public class ServiceProxy implements InvocationHandler {
                 .args(args)
                 .build();
         try {
-            byte[] postData = serializer.serialize(rpcRequest);
             Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
             serviceMetaInfo.setServiceName(serviceName);
@@ -47,14 +64,12 @@ public class ServiceProxy implements InvocationHandler {
             if (serviceMetaInfoList.isEmpty()){
                 throw new RuntimeException("没有可用的服务");
             }
-            ServiceMetaInfo selectedServiceMetaInfo = serviceMetaInfoList.get(0);
-            try (HttpResponse httpResponse = HttpRequest.post(selectedServiceMetaInfo.getServiceAddress())
-                    .body(postData)
-                    .execute()) {
-                byte[] result = httpResponse.bodyBytes();
-                RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
-                return rpcResponse.getData();
-            }
+            LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+            HashMap<String, Object> requestParams = new HashMap<>();
+            requestParams.put("methodName",rpcRequest.getMethodName());
+            ServiceMetaInfo selectedServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
+            RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectedServiceMetaInfo);
+            return rpcResponse.getData();
         }catch (Exception e){
             e.printStackTrace();
         }

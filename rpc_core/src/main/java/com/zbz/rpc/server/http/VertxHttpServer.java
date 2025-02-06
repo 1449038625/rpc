@@ -1,5 +1,6 @@
-package com.zbz.rpc.server;
+package com.zbz.rpc.server.http;
 
+import com.zbz.rpc.server.HttpServer;
 import io.vertx.core.Vertx;
 
 /**
@@ -11,7 +12,7 @@ import io.vertx.core.Vertx;
  * @Create: 2025/2/4 - 11:20
  * @Version: v1.0
  */
-public class VertxHttpServer implements HttpServer{
+public class VertxHttpServer implements HttpServer {
     @Override
     public void doStart(int port) {
         Vertx vertx = Vertx.vertx();

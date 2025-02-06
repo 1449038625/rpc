@@ -9,7 +9,8 @@ import com.zbz.rpc.registry.Registry;
 import com.zbz.rpc.registry.RegistryFactory;
 import com.zbz.rpc.registry.impl.LocalRegistry;
 import com.zbz.rpc.server.HttpServer;
-import com.zbz.rpc.server.VertxHttpServer;
+import com.zbz.rpc.server.http.VertxHttpServer;
+import com.zbz.rpc.server.tcp.VertxTcpServer;
 
 /**
  * Classname: EasyProviderExample
@@ -39,7 +40,7 @@ public class ProviderExample {
             e.printStackTrace();
         }
         // 启动 web 服务
-        HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(rpcConfig.getServerPort());
+        VertxTcpServer vertxTcpServer = new VertxTcpServer();
+        vertxTcpServer.doStart(rpcConfig.getServerPort());
     }
 }

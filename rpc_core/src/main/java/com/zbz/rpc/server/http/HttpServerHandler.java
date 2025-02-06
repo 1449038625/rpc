@@ -1,4 +1,4 @@
-package com.zbz.rpc.server;
+package com.zbz.rpc.server.http;
 
 import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.model.RpcRequest;
