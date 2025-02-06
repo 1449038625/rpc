@@ -9,7 +9,7 @@ package com.zbz.rpc.server;
  * @Create: 2025/2/4 - 11:17
  * @Version: v1.0
  */
-public interface HttpServer {
+public interface VertxServer {
     /**
      * 启动服务
      * @param port

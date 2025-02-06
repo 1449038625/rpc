@@ -1,4 +1,4 @@
-package com.zbz.rpc.registry.impl;
+package com.zbz.rpc.registry;
 
 import java.util.concurrent.ConcurrentHashMap;
 

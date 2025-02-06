@@ -1,0 +1,2 @@
+httpServer=com.zbz.rpc.server.http.VertxHttpServer
+tcpServer=com.zbz.rpc.server.tcp.VertxTcpServer

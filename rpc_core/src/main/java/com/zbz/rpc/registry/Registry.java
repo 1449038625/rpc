@@ -36,7 +36,7 @@ public interface Registry {
      */
     void unRegister(ServiceMetaInfo serviceMetaInfo);
     /**
-     * 服务发现（获取某服务的所有节点，消费端）
+     * 服务发现（获取某接口服务的所有可服务节点，消费端）
      *
      * @param serviceKey 服务键名
      * @return

@@ -6,7 +6,7 @@ import com.zbz.rpc.model.RpcResponse;
 import com.zbz.rpc.protocol.ProtocolMessage;
 import com.zbz.rpc.protocol.ProtocolMessageDecoder;
 import com.zbz.rpc.protocol.ProtocolMessageEncoder;
-import com.zbz.rpc.registry.impl.LocalRegistry;
+import com.zbz.rpc.registry.LocalRegistry;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.net.NetSocket;

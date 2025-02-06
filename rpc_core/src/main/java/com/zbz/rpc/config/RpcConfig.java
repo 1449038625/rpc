@@ -1,9 +1,6 @@
 package com.zbz.rpc.config;
 
-import com.zbz.rpc.constant.LoadBalancerKeys;
-import com.zbz.rpc.constant.RetryStrategyKeys;
-import com.zbz.rpc.constant.SerializerKeys;
-import com.zbz.rpc.constant.TolerantStrategyKeys;
+import com.zbz.rpc.constant.*;
 import lombok.Data;
 
 /**
@@ -57,4 +54,8 @@ public class RpcConfig {
      * 容错机制
      */
     private String tolerantStrategy = TolerantStrategyKeys.FAIL_SAFE;
+    /**
+     * 自定义协议
+     */
+    private String vertxServer = VertxServerKeys.TCP_SERVER;
 }

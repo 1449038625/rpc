@@ -3,7 +3,7 @@ package com.zbz.rpc.server.http;
 import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.model.RpcRequest;
 import com.zbz.rpc.model.RpcResponse;
-import com.zbz.rpc.registry.impl.LocalRegistry;
+import com.zbz.rpc.registry.LocalRegistry;
 import com.zbz.rpc.serializer.Serializer;
 import com.zbz.rpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
