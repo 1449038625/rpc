@@ -10,6 +10,10 @@ import com.zbz.rpc.constant.ProtocolConstant;
 import com.zbz.rpc.constant.RpcConstant;
 import com.zbz.rpc.enums.ProtocolMessageSerializerEnum;
 import com.zbz.rpc.enums.ProtocolMessageTypeEnum;
+import com.zbz.rpc.fault.retry.RetryStrategy;
+import com.zbz.rpc.fault.retry.RetryStrategyFactory;
+import com.zbz.rpc.fault.tolerant.TolerantStrategy;
+import com.zbz.rpc.fault.tolerant.TolerantStrategyFactory;
 import com.zbz.rpc.loadbalancer.LoadBalancer;
 import com.zbz.rpc.loadbalancer.LoadBalancerFactory;
 import com.zbz.rpc.model.RpcRequest;
@@ -55,6 +59,7 @@ public class ServiceProxy implements InvocationHandler {
                 .parameterTypes(method.getParameterTypes())
                 .args(args)
                 .build();
+        RpcResponse rpcResponse;
         try {
             Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
@@ -68,11 +73,14 @@ public class ServiceProxy implements InvocationHandler {
             HashMap<String, Object> requestParams = new HashMap<>();
             requestParams.put("methodName",rpcRequest.getMethodName());
             ServiceMetaInfo selectedServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
-            RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectedServiceMetaInfo);
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
+            rpcResponse = retryStrategy.doRetry(() -> VertxTcpClient.doRequest(rpcRequest, selectedServiceMetaInfo));
             return rpcResponse.getData();
         }catch (Exception e){
+            TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstance(rpcConfig.getTolerantStrategy());
+            rpcResponse = tolerantStrategy.doTolerant(new HashMap<>(), e);
             e.printStackTrace();
         }
-        return null;
+        return rpcResponse.getData();
     }
 }

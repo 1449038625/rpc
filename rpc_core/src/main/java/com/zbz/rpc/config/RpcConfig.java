@@ -1,7 +1,9 @@
 package com.zbz.rpc.config;
 
 import com.zbz.rpc.constant.LoadBalancerKeys;
+import com.zbz.rpc.constant.RetryStrategyKeys;
 import com.zbz.rpc.constant.SerializerKeys;
+import com.zbz.rpc.constant.TolerantStrategyKeys;
 import lombok.Data;
 
 /**
@@ -47,4 +49,12 @@ public class RpcConfig {
      * 负载均衡器
      */
     private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
+    /**
+     * 重试机制
+     */
+    private String retryStrategy = RetryStrategyKeys.FIXED_INTERVAL;
+    /**
+     * 容错机制
+     */
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_SAFE;
 }

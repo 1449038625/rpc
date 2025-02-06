@@ -1,0 +1,4 @@
+failBack=com.zbz.rpc.fault.tolerant.impl.FailBackTolerantStrategy
+failFast=com.zbz.rpc.fault.tolerant.impl.FailFastTolerantStrategy
+failOver=com.zbz.rpc.fault.tolerant.impl.FailOverTolerantStrategy
+failSafe=com.zbz.rpc.fault.tolerant.impl.FailSafeTolerantStrategy
