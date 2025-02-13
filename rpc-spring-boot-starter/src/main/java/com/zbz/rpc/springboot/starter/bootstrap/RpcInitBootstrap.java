@@ -2,6 +2,8 @@ package com.zbz.rpc.springboot.starter.bootstrap;
 
 import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.config.RpcConfig;
+import com.zbz.rpc.server.VertxServer;
+import com.zbz.rpc.server.VertxServerFactory;
 import com.zbz.rpc.server.tcp.VertxTcpServer;
 import com.zbz.rpc.springboot.starter.annotation.EnableRpc;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +38,8 @@ public class RpcInitBootstrap implements ImportBeanDefinitionRegistrar {
 
         // 启动服务器
         if (needServer) {
-            VertxTcpServer vertxTcpServer = new VertxTcpServer();
-            vertxTcpServer.doStart(rpcConfig.getServerPort());
+            VertxServer vertxServer = VertxServerFactory.getInstance(rpcConfig.getVertxServer());
+            vertxServer.doStart(rpcConfig.getServerPort());
         } else {
             log.info("不启动 server");
         }
