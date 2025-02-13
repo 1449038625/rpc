@@ -1,3 +1,0 @@
-roundRobin=com.zbz.rpc.loadbalancer.impl.RoundRobinLoadBalancer
-random=com.zbz.rpc.loadbalancer.impl.RandomLoadBalancer
-consistentHash=com.zbz.rpc.loadbalancer.impl.ConsistentHashLoadBalancer

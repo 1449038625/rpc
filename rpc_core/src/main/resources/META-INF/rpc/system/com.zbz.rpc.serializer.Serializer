@@ -1,4 +1,0 @@
-jdk=com.zbz.rpc.serializer.impl.JdkSerializer
-hessian=com.zbz.rpc.serializer.impl.HessianSerializer
-json=com.zbz.rpc.serializer.impl.JsonSerializer
-kryo=com.zbz.rpc.serializer.impl.KryoSerializer

@@ -1,2 +1,0 @@
-no=com.zbz.rpc.fault.retry.impl.NoRetryStrategy
-fixedInterval=com.zbz.rpc.fault.retry.impl.FixedIntervalRetryStrategy
