@@ -2,6 +2,7 @@ package com.zbz.example.consumer;
 
 import com.zbz.example.common.model.User;
 import com.zbz.example.common.service.UserService;
+import com.zbz.rpc.RpcApplication;
 import com.zbz.rpc.bootstrap.ConsumerBootstrap;
 import com.zbz.rpc.proxy.ServiceProxyFactory;
 
@@ -17,7 +18,7 @@ import com.zbz.rpc.proxy.ServiceProxyFactory;
 public class ConsumerExample {
     public static void main(String[] args) {
         // 服务提供者初始化
-        ConsumerBootstrap.init();
+        RpcApplication.init();
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
         user.setName("张三");
