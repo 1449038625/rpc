@@ -16,6 +16,9 @@
         <module>example-provider</module>
         <module>example-springboot-consumer</module>
         <module>example-springboot-provider</module>
+        <module>example-extended-consumer</module>
+        <module>example-extended-provider</module>
+        <module>rpc-spring-boot-starter</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
